@@ -3,6 +3,7 @@
 import time
 import os
 import random
+import platform
 #import ai.py
 #import gameCheck.py
 
@@ -17,11 +18,11 @@ GRID_HEIGHT = 8
 LOGO = """
 ██╗  ██╗     ██████╗ ███████╗██╗    ██╗██╗███╗   ██╗███╗   ██╗████████╗
 ██║  ██║    ██╔════╝ ██╔════╝██║    ██║██║████╗  ██║████╗  ██║╚══██╔══╝
-███████║    ██║  ███╗█████╗  ██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║   ██║   
-╚════██║    ██║   ██║██╔══╝  ██║███╗██║██║██║╚██╗██║██║╚██╗██║   ██║   
-     ██║    ╚██████╔╝███████╗╚███╔███╔╝██║██║ ╚████║██║ ╚████║   ██║   
-     ╚═╝     ╚═════╝ ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝   ╚═╝   
-                                                                                                                      
+███████║    ██║  ███╗█████╗  ██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║   ██║
+╚════██║    ██║   ██║██╔══╝  ██║███╗██║██║██║╚██╗██║██║╚██╗██║   ██║
+     ██║    ╚██████╔╝███████╗╚███╔███╔╝██║██║ ╚████║██║ ╚████║   ██║
+     ╚═╝     ╚═════╝ ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝   ╚═╝
+
 """
 
 MENU = """
@@ -83,7 +84,7 @@ def printGame():
                 game_field += PLAYER2_SYMBOL
             game_field += " |"
         game_field += "\n"
-    
+
     for i in range(game_width):
         game_field += "-"
     game_field += "\n"
@@ -91,7 +92,12 @@ def printGame():
     print(game_field)
 
 def clearConsole():
-    os.system("cls")
+    currentOS = platform.system()
+
+    if(currentOS == "Windows"):
+        os.system("cls")
+    else
+        os.system("clear")
 
 # endregion
 
@@ -185,5 +191,5 @@ while 1:
                 pass
             time.sleep(1)
         # TODO: check State
-   
+
 # endregion
