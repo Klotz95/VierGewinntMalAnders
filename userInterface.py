@@ -1,4 +1,11 @@
-# coding: utf-8
+"""Simple implementation of modified game connect four with console interface
+program for EPR 03
+"""
+
+__author__ = "123456: Nico Kotlenga, 6404053: Tim Geier" #TODO: Nico MatNr.
+__copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
+__email__ = ", uni@tim-geier.de" #TODO: Nico Mail eintragen
+
 
 import time
 import os
@@ -44,8 +51,12 @@ Hauptmenü:
 game_data = []
 
 def initGame(target_list):
-    global actual_player
-    actual_player = 1
+    """Initialize target_list
+        Create GRID_HEIGHT lists with GRID_WIDTH items
+        If target_list is already defined, set every item to 0
+    """
+    global gActualPlayer
+    gActualPlayer = 1
     if len(target_list) < 1:
         for i in range(GRID_HEIGHT):
             temp_list = []
@@ -53,34 +64,44 @@ def initGame(target_list):
                 temp_list.append(0)
             target_list.append(temp_list)
     else:
-        for i in range(GRID_HEIGHT):
-            for j in range(GRID_WIDTH):
-                target_list[i][j] = 0
+        for curr_row in range(GRID_HEIGHT):
+            for current_column in range(GRID_WIDTH):
+                target_list[curr_row][current_column] = 0
 
 # endregion
 
 # region "print game_data to console"
 
 def printGame():
+    """print game_data formatted as table to console
+        generates something like:
+        | 1 | 2 | 3 |
+        -------------
+        |   |   |   |
+        |   |   |   |
+        |   | X |   |
+        | X | O |   |
+        -------------
+    """
     clearConsole()
     game_field = "|"
-    for i in range(GRID_WIDTH):
-        game_field += " " + str(i+1) + " |"
+    for curr_row_number in range(1, GRID_WIDTH + 1):
+        game_field += " " + str(curr_row_number) + " |"
     game_field += "\n"
     game_width = len(game_field) - 1
     for i in range(game_width):
         game_field += "-"
     game_field += "\n"
-    for i in range(GRID_HEIGHT):
-        for j in range(GRID_WIDTH):
-            if j == 0:
+    for curr_row in range(GRID_HEIGHT):
+        for current_column in range(GRID_WIDTH):
+            if current_column == 0:
                 game_field += "|"
             game_field += " "
-            if game_data[i][j] == 0:
+            if game_data[curr_row][current_column] == 0:
                 game_field += " "
-            elif game_data[i][j] == 1:
+            elif game_data[curr_row][current_column] == 1:
                 game_field += PLAYER1_SYMBOL
-            elif game_data[i][j] == 2:
+            elif game_data[curr_row][current_column] == 2:
                 game_field += PLAYER2_SYMBOL
             game_field += " |"
         game_field += "\n"
@@ -92,6 +113,9 @@ def printGame():
     print(game_field)
 
 def clearConsole():
+    """clears the console window
+       different implementation for Windows and Unix
+    """
     currentOS = platform.system()
 
     if(currentOS == "Windows"):
@@ -99,23 +123,30 @@ def clearConsole():
     else
         os.system("clear")
 
+
+
+
+
 # endregion
 
 # region "dropCoin"
 
-actual_player = 1
+gActualPlayer = 1
 
 def drop_coin(col):
-    global actual_player
-    for i in range(GRID_HEIGHT - 1, -1, -1):
-        if not game_data[i][col]:
-            if actual_player == 1:
-                game_data[i][col] = 1
-                actual_player = 2
+    """tries to put a coin in column col
+        col needs to be the column index beginning at 0
+    """
+    global gActualPlayer
+    for curr_row in range(GRID_HEIGHT - 1, -1, -1):
+        if not game_data[curr_row][col]:
+            if gActualPlayer == 1:
+                game_data[curr_row][col] = 1
+                gActualPlayer = 2
                 return True
-            elif actual_player == 2:
-                game_data[i][col] = 2
-                actual_player = 1
+            elif gActualPlayer == 2:
+                game_data[curr_row][col] = 2
+                gActualPlayer = 1
                 return True
     else:
         return False
@@ -124,19 +155,22 @@ def drop_coin(col):
 
 # region "game logic/main menu"
 """
-
-possible game_state's:
+possible values for gGameState:
     0   main menu
     1   singleplayer, game running
     2   multiplayer, game running
 """
 
 def getUserInput():
-    global game_state
+    """processes user input
+        asks user for column number to put coin to
+        processes 'exit' and 'restart' commands
+    """
+    global gGameState
     temp_input = input("Bitte Spalten Nr. eingeben: ")
     if temp_input == "exit":
         clearConsole()
-        game_state = 0
+        gGameState = 0
         return -1
     elif temp_input == "restart":
         initGame(game_data)
@@ -155,35 +189,34 @@ while 1:
     print(LOGO)
     print(MENU)
 
-    a = input("Bitte Auswahl treffen: ")
-    if a == "exit":
+    temp_input = input("Bitte Auswahl treffen: ")
+    if temp_input == "exit":
         break
     else:
-        if a.isnumeric():
-            s = int(a)
-            game_state = s
+        if temp_input.isnumeric():
+            gGameState = int(temp_input)
         else:
             print("Falsche Eingabe")
             continue
 
     initGame(game_data)
 
-    while game_state == 2:
+    while gGameState == 2:
         printGame()
-        print("Spieler", actual_player, "ist am Zug")
-        s = getUserInput()
-        if s < 0:
+        print("Spieler", gActualPlayer, "ist am Zug")
+        target_column = getUserInput()
+        if target_column < 0:
             continue
-        drop_coin(int(s)-1)
+        drop_coin(int(target_column)-1)
         # TODO: check State
 
-    while game_state == 1:
+    while gGameState == 1:
         printGame()
-        if actual_player == 1:
-            s = getUserInput()
-            if s < 0:
+        if gActualPlayer == 1:
+            target_column = getUserInput()
+            if target_column < 0:
                 continue
-            if not drop_coin(int(s)-1): continue
+            if not drop_coin(int(target_column)-1): continue
         else:
             print("Computer denkt...")
             # TODO: AI Implementieren
