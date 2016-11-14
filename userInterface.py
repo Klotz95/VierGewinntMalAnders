@@ -1,8 +1,8 @@
-"""Docstring: A very short sentence explaining the function. < 79 characters.
-additional informaion if required and more infos
+"""Simple implementation of modified game connect four with console interface
+program for EPR 03
 """
 
-__author__ = "123456: Nico Kotlenga, 6404053: Tim Geier" #TODO: Nico MatNr. eintragen
+__author__ = "123456: Nico Kotlenga, 6404053: Tim Geier" #TODO: Nico MatNr.
 __copyright__ = "Copyright 2016 – EPR-Goethe-Uni" 
 __email__ = ", uni@tim-geier.de" #TODO: Nico Mail eintragen
 
@@ -63,9 +63,9 @@ def initGame(target_list):
                 temp_list.append(0)
             target_list.append(temp_list)
     else:
-        for i in range(GRID_HEIGHT):
-            for j in range(GRID_WIDTH):
-                target_list[i][j] = 0
+        for curr_row in range(GRID_HEIGHT):
+            for current_column in range(GRID_WIDTH):
+                target_list[curr_row][current_column] = 0
 
 # endregion
 
@@ -116,6 +116,7 @@ def clearConsole():
         diefferent implementation for Windows and Unix
     """
     os.system("cls")
+    #TODO: clearConsole für Unix
 
 # endregion
 
