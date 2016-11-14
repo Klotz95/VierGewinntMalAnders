@@ -2,9 +2,9 @@
 program for EPR 03
 """
 
-__author__ = "123456: Nico Kotlenga, 6404053: Tim Geier" #TODO: Nico MatNr.
+__author__ = "123456:6345060 Nico Kotlenga, 6404053: Tim Geier" 
 __copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
-__email__ = ", uni@tim-geier.de" #TODO: Nico Mail eintragen
+__email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
 
 import time

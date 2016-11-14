@@ -2,9 +2,9 @@
 
 """
 
-__author__ = "6345060: Nico Kotlenga"
-__copyright__ = "Copyright 2016/2017 - Nico Kotlenga"
-__email__ = "NicoKotlenga@stud.uni-frankfurt.de"
+__author__ = "123456:6345060 Nico Kotlenga, 6404053: Tim Geier"
+__copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
+__email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
 
 class GameCheck:
