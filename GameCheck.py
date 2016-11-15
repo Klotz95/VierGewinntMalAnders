@@ -45,7 +45,7 @@ class GameCheck:
 
 
 
-    def __check_for_Win_Of(self, playerSign, cuttedGameField):
+    def __check_for_win_of(self, playerSign, cuttedGameField):
         """This method checks if a specific player has won the game.
            Therefor the method has the parameter playerSign which has to be a
            string and contains the player Symbol like "X" , "O"...
@@ -110,5 +110,5 @@ class GameCheck:
 
                      # reset currentCountOfSignsInARow
                      currentCountOfSignsInARow = 0
-        #if no combination has been found 
+        #if no combination has been found
         return False
