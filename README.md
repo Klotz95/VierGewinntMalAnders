@@ -38,3 +38,5 @@ Falls das genutzte Betriebssystem keins der oben genannten ist, wird automatisch
         <td>MacUserInterface.py</td>
         <td>Beinhaltet das graphische User-Interface für Mac</td>
 </table>
+<h2>Nutzungshinweise</h2>
+<p>Um das Spiel zu starten, importieren sie das Modul userInterface.py in den Python-Interpreter. Fall sie einen Mac besitzen oder das Betriebssystem Windows benutzen, wird wird die graphische Oberfläche automatisch gestartet.</p>
