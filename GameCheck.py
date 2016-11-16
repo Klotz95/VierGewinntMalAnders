@@ -27,7 +27,7 @@ class GameCheck:
 
         cuttedGameField = [self.__currentGameField[0]]
 
-        for i in rage(1, len(self.__currentGameField), 1):
+        for i in range(1, len(self.__currentGameField), 1):
             currentRow = self.__currentGameField[i]
             for k in currentRow:
                 if(k is not None):
@@ -35,9 +35,9 @@ class GameCheck:
                     break
 
         if(len(cuttedGameField) >= 2):
-            if(__check_for_Win_Of("X", cuttedGameField)):
+            if(self.__check_for_win_of(1, cuttedGameField)):
                 return 1
-            elif(__check_for_Win_Of("0", cuttedGameField)):
+            elif(self.__check_for_win_of(0, cuttedGameField)):
                 return 2
 
         return 0
@@ -54,57 +54,56 @@ class GameCheck:
 
         countOfLines = len(cuttedGameField)
         countOfRows = len(cuttedGameField[0]) # countOfLines >=2 no exception
-
         for y in range(countOfLines):
             currentCountOfSignsInARow = 0
-            for x in range(countOfRow):
+            for x in range(countOfRows):
                 if(cuttedGameField[y][x] == playerSign):
-                     currentCountOfSignsInARow++
+                     currentCountOfSignsInARow += 1
                 else:
                      if(currentCountOfSignsInARow == 2):
                          # check for two bot and top
                          if(countOfLines - (y + 1) >= 2):
                              # prevent index out of range exception
-                             if((cuttedGameField[y + 1][x - 2] == playerSign /
-                             and cuttedGameField[y + 2][x - 2] == playerSign)/
-                             or (cuttedGameField[y + 1][x - 1] == playerSign /
+                             if((cuttedGameField[y + 1][x - 2] == playerSign \
+                             and cuttedGameField[y + 2][x - 2] == playerSign)\
+                             or (cuttedGameField[y + 1][x - 1] == playerSign \
                              and cuttedGameField[y + 2][x - 1] == playerSign)):
                                 return True
                          if(y >= 2):
-                             if((cuttedGameField[y - 1][x - 2] == playerSign /
-                             and cuttedGameField[y - 2][x - 2] == playerSign)/
-                             or (cuttedGameField[y - 1][x - 1] == playerSign /
+                             if((cuttedGameField[y - 1][x - 2] == playerSign \
+                             and cuttedGameField[y - 2][x - 2] == playerSign)\
+                             or (cuttedGameField[y - 1][x - 1] == playerSign \
                              and cuttedGameField[y - 2][x - 1] == playerSign)):
                                 return True
 
                      elif(currentCountOfSignsInARow == 3):
                          if(countOfLines - (y + 1) >= 1):
                              for i in range(3, 0, - 2):
-                                 if(cuttedGameField[y + 1][x - i] == /
+                                 if(cuttedGameField[y + 1][x - i] == \
                                  playerSign):
                                     return True
                          if(y >= 1):
                              for i in range(3, 0, - 2):
-                                 if(cuttedGameField[y - 1][x - i] == /
+                                 if(cuttedGameField[y - 1][x - i] == \
                                  playerSign):
                                     return True
-                         if(countOfLines - (y + 1) >= 2 and /
-                         cuttedGameField[y + 1][x - 2] == playerSign and /
+                         if(countOfLines - (y + 1) >= 2 and \
+                         cuttedGameField[y + 1][x - 2] == playerSign and \
                          cuttedGameField[y + 2][x - 2] == playerSign):
                             return True
-                         if(y >= 2 and cuttedGameField[y - 1][x - 2] == /
-                         playerSign and cuttedGameField[y - 2][x - 2] == /
+                         if(y >= 2 and cuttedGameField[y - 1][x - 2] == \
+                         playerSign and cuttedGameField[y - 2][x - 2] == \
                          playerSign):
                             return True
 
                      elif(currentCountOfSignsInARow > 3):
                          for i in range(currentCountOfSignsInARow, 0 , -1):
                              if(countOfLines - (y + 1) >= 1):
-                                 if(cuttedGameField[y + 1][x - i] == /
+                                 if(cuttedGameField[y + 1][x - i] == \
                                  playerSign):
                                     return True
                              if(y >= 1):
-                                 if(cuttedGameField[y - 1][x - i] == /
+                                 if(cuttedGameField[y - 1][x - i] == \
                                  playerSign):
                                     return True
 

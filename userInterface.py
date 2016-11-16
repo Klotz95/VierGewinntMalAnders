@@ -2,7 +2,7 @@
 program for EPR 03
 """
 
-__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier" 
+__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier"
 __copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
 __email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
@@ -11,6 +11,7 @@ import time
 import os
 import random
 import platform
+import GameCheck
 #import ai.py
 #import gameCheck.py
 
@@ -49,7 +50,7 @@ Hauptmenü:
 
 # region "initialize game_data list"
 game_data = []
-
+game_checker = GameCheck.GameCheck(game_data)
 def initGame(target_list):
     """Initialize target_list
         Create GRID_HEIGHT lists with GRID_WIDTH items
@@ -120,7 +121,7 @@ def clearConsole():
 
     if(currentOS == "Windows"):
         os.system("cls")
-    else
+    else:
         os.system("clear")
 
 
@@ -208,7 +209,10 @@ while 1:
         if target_column < 0:
             continue
         drop_coin(int(target_column)-1)
-        # TODO: check State
+        curGameState = game_checker.is_game_finish()
+        if(curGameState != 0):
+             input("Spieler " + str(curGameState) + " hat gewonnen...")
+             gGameState = 0
 
     while gGameState == 1:
         printGame()
@@ -223,6 +227,13 @@ while 1:
             while not drop_coin(random.randint(0, GRID_WIDTH-1)):
                 pass
             time.sleep(1)
-        # TODO: check State
+        # check for win
+        curGameState = game_checker.is_game_finish()
+        if(curGameState != 0):
+            if(curGameState == 1):
+                input("Glückwunsch, sie haben gewonnen...")
+            else:
+                input("Sie haben verloren. Viel Glück beim nächsten Spiel")
+            gGameState = 0
 
 # endregion
