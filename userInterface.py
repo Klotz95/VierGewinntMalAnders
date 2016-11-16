@@ -2,14 +2,15 @@
 program for EPR 03
 """
 
-__author__ = "123456: Nico Kotlenga, 6404053: Tim Geier" #TODO: Nico MatNr.
-__copyright__ = "Copyright 2016 – EPR-Goethe-Uni" 
-__email__ = ", uni@tim-geier.de" #TODO: Nico Mail eintragen
+__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier" 
+__copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
+__email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
 
 import time
 import os
 import random
+import platform
 #import ai.py
 #import gameCheck.py
 
@@ -24,11 +25,11 @@ GRID_HEIGHT = 8
 LOGO = """
 ██╗  ██╗     ██████╗ ███████╗██╗    ██╗██╗███╗   ██╗███╗   ██╗████████╗
 ██║  ██║    ██╔════╝ ██╔════╝██║    ██║██║████╗  ██║████╗  ██║╚══██╔══╝
-███████║    ██║  ███╗█████╗  ██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║   ██║   
-╚════██║    ██║   ██║██╔══╝  ██║███╗██║██║██║╚██╗██║██║╚██╗██║   ██║   
-     ██║    ╚██████╔╝███████╗╚███╔███╔╝██║██║ ╚████║██║ ╚████║   ██║   
-     ╚═╝     ╚═════╝ ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝   ╚═╝   
-                                                                                                                      
+███████║    ██║  ███╗█████╗  ██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║   ██║
+╚════██║    ██║   ██║██╔══╝  ██║███╗██║██║██║╚██╗██║██║╚██╗██║   ██║
+     ██║    ╚██████╔╝███████╗╚███╔███╔╝██║██║ ╚████║██║ ╚████║   ██║
+     ╚═╝     ╚═════╝ ╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝   ╚═╝
+
 """
 
 MENU = """
@@ -53,7 +54,7 @@ def initGame(target_list):
     """Initialize target_list
         Create GRID_HEIGHT lists with GRID_WIDTH items
         If target_list is already defined, set every item to 0
-    """ 
+    """
     global gActualPlayer
     gActualPlayer = 1
     if len(target_list) < 1:
@@ -104,7 +105,7 @@ def printGame():
                 game_field += PLAYER2_SYMBOL
             game_field += " |"
         game_field += "\n"
-    
+
     for i in range(game_width):
         game_field += "-"
     game_field += "\n"
@@ -113,10 +114,18 @@ def printGame():
 
 def clearConsole():
     """clears the console window
-        diefferent implementation for Windows and Unix
+       different implementation for Windows and Unix
     """
-    os.system("cls")
-    #TODO: clearConsole für Unix
+    currentOS = platform.system()
+
+    if(currentOS == "Windows"):
+        os.system("cls")
+    else
+        os.system("clear")
+
+
+
+
 
 # endregion
 
@@ -125,7 +134,7 @@ def clearConsole():
 gActualPlayer = 1
 
 def drop_coin(col):
-    """tries to put a coin in column col 
+    """tries to put a coin in column col
         col needs to be the column index beginning at 0
     """
     global gActualPlayer
@@ -215,5 +224,5 @@ while 1:
                 pass
             time.sleep(1)
         # TODO: check State
-   
+
 # endregion
