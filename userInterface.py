@@ -12,7 +12,7 @@ import os
 import random
 import platform
 import GameCheck
-#import ai.py
+import ai
 #import gameCheck.py
 
 # region "constants / settings"
@@ -51,6 +51,7 @@ Hauptmenü:
 # region "initialize game_data list"
 game_data = []
 game_checker = GameCheck.GameCheck(game_data)
+ai = ai.ai(game_data)
 def initGame(target_list):
     """Initialize target_list
         Create GRID_HEIGHT lists with GRID_WIDTH items
@@ -224,9 +225,9 @@ while 1:
         else:
             print("Computer denkt...")
             # TODO: AI Implementieren
-            while not drop_coin(random.randint(0, GRID_WIDTH-1)):
+            while not drop_coin(ai.get_next_move()):
                 pass
-            time.sleep(1)
+          
         # check for win
         curGameState = game_checker.is_game_finish()
         if(curGameState != 0):
