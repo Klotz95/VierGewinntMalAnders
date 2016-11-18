@@ -37,7 +37,7 @@ class GameCheck:
         if(len(cuttedGameField) >= 2):
             if(self.__check_for_win_of(1, cuttedGameField)):
                 return 1
-            elif(self.__check_for_win_of(0, cuttedGameField)):
+            elif(self.__check_for_win_of(2, cuttedGameField)):
                 return 2
 
         return 0
@@ -93,7 +93,7 @@ class GameCheck:
                             return True
                          if(y >= 2 and cuttedGameField[y - 1][x - 2] == \
                          playerSign and cuttedGameField[y - 2][x - 2] == \
-                         playerSign):
+                          playerSign):
                             return True
 
                      elif(currentCountOfSignsInARow > 3):
