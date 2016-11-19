@@ -5,8 +5,7 @@
 <p><em>Beispiel einer Siegkonstellation:</em></p>
 <p>x x x<br>x<br>x</p>
 <h3>User Interface</h3>
-<p>Das User-Interface sollte schlicht gehalten werden. Sprich, es sollte lediglich eine Terminal-Applikation realisiert werden, welche die Steine der jeweilig zwei Spieler, deutlich differenziert voneinander repräsentiert. Diese Projekt ging noch einen kleinen Schritt weiter und realisierte ebenfalls eine graphische Schnittstelle für Windows oder Mac. <br>
-Falls das genutzte Betriebssystem keins der oben genannten ist, wird automatisch das Terminal-Interface geladen. Natürlich kann das Terminal-Interface auch unter den anderen Systemen manuell geladen werden ;).</p>
+<p>Das User-Interface sollte schlicht gehalten werden. Sprich, es sollte lediglich eine Terminal-Applikation realisiert werden, welche die Steine der jeweilig zwei Spieler, deutlich differenziert voneinander repräsentiert.</p>
 <h3>KI</h3>
 <p>Für das Spiel sollte ebenfalls ein Single-Player-Mode realisiert werden. Hierbei ist es (laut Aufgabenbeschreibung) völlig egal, welcher ALgorithmus für das Realisieren genutzt wird. Natürlich könnte man einfach eine Zufallszahl generieren und an dieser Stelle den Stein fallen lassen. Diese Methode ist aber ziemlich uncool und findet innerhalb diese Projektes keine Anwendung.</p>
 <h2>Module</h2>
@@ -31,12 +30,6 @@ Falls das genutzte Betriebssystem keins der oben genannten ist, wird automatisch
         <td>KI.py</td>
         <td>Beinhaltet die KI für den Single-Player-Mode</td>
       </tr>
-      <tr>
-        <td>WindowsUserInterface.py</td>
-        <td>Beinhaltet das graphische User-Interface für Windows</td>
-       </tr>
-        <td>MacUserInterface.py</td>
-        <td>Beinhaltet das graphische User-Interface für Mac</td>
 </table>
 <h2>Nutzungshinweise</h2>
-<p>Um das Spiel zu starten, importieren sie das Modul userInterface.py in den Python-Interpreter. Fall sie einen Mac besitzen oder das Betriebssystem Windows benutzen, wird wird die graphische Oberfläche automatisch gestartet.</p>
+<p>Um das Spiel zu starten, importieren sie das Modul userInterface.py in den Python-Interpreter. </p>
