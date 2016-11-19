@@ -2,7 +2,7 @@
 program for EPR 03
 """
 
-__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier"
+__author__ = "6345060: Nico Kotlenga, 6404053: Tim Geier"
 __copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
 __email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
@@ -12,8 +12,7 @@ import os
 import random
 import platform
 import GameCheck
-import ai
-#import gameCheck.py
+import ki
 
 # region "constants / settings"
 
@@ -51,7 +50,7 @@ Hauptmenü:
 # region "initialize game_data list"
 game_data = []
 game_checker = GameCheck.GameCheck(game_data)
-ai = ai.ai(game_data)
+ki = ki.ki(game_data)
 def initGame(target_list):
     """Initialize target_list
         Create GRID_HEIGHT lists with GRID_WIDTH items
@@ -124,10 +123,6 @@ def clearConsole():
         os.system("cls")
     else:
         os.system("clear")
-
-
-
-
 
 # endregion
 
@@ -210,11 +205,12 @@ while 1:
         if target_column < 0:
             continue
         drop_coin(int(target_column)-1)
+        printGame()
         curGameState = game_checker.is_game_finish()
         if(curGameState != 0):
              input("Spieler " + str(curGameState) + " hat gewonnen...")
              gGameState = 0
-
+        
     while gGameState == 1:
         printGame()
         if gActualPlayer == 1:
@@ -224,10 +220,10 @@ while 1:
             if not drop_coin(int(target_column)-1): continue
         else:
             print("Computer denkt...")
-            # TODO: AI Implementieren
-            while not drop_coin(ai.get_next_move()):
+            # TODO: KI Implementieren
+            while not drop_coin(ki.get_next_move()):
                 pass
-          
+        printGame()
         # check for win
         curGameState = game_checker.is_game_finish()
         if(curGameState != 0):
@@ -236,5 +232,74 @@ while 1:
             else:
                 input("Sie haben verloren. Viel Glück beim nächsten Spiel")
             gGameState = 0
+        
+# endregion
+
+
+# region "Tests"
+
+# Hauptmenü
+#   Erwartete Eingabe:
+#         Zahl 1 oder 2, bzw. exit zum beenden
+#   Eingabe:
+#       1 --> Einzelspieler-Modus startet
+#       2 --> Zweispieler-Modus startet
+#       exit --> Hauptschleife wird verlassen, Programm zu ende
+#       Eingabe falscher Zahl (3 und 42) --> Eingabe wird ignoriert
+#       Eingabe von falschem Text (asdfg) --> Eingabe wird ignoriert
+#         --> Hauptmenü verarbeitet alle Eingaben korrekt
+
+# clearConsole
+#   Der Methodenaufruf erwarete keine Argumente
+#   Test:
+#       Methodenaufruf auf Windows löscht den Inhalt der Konsole
+#       Methodenaufruf auf Unix funktioniert nicht beim Start durch IDLE!
+#       Methodenaufruf auf Unix aus der Cosole funktioniert
+
+
+# printGame
+#   Der Methodenaufruf erwarete keine Argumente,
+#   muss jedoch nach Initialisierung erfolgen!
+#   Test:
+#       Aufruf der Funktion nach Initialisierung gibt Spielfeld aus
+#       Da die Listen automatisch generiert werden,
+#       sind Indexfehler bei der Ausgabe ausgeschlossen.
+
+# initGame(target_list)
+#   Die Ziel-Liste wird als einziges Arguent erwartet.
+#       Wird Kein Argument übergeben, schläft der Aufruf fehl
+#   Test:
+#       Liste noch nicht initialisiert/Programm erst gestartet:
+#       --> Listen werden mit den entsprechenden Grenzen erstellt
+#       --> Getestet für Felder von 1x1 bis 10x10
+#       Liste bereits initialisiert/Spiel wird zurückgesetzt
+#       --> Alle Listenelemente werden auf 0 gesetzt
+#       --> Auch an Ausgabe zu sehen, alle Felder wieder leer
+
+
+# getUserInput
+#   Die Funktion erwartet kein Argument
+#   Rückgabe -1 bei keiner gültigen Spalte oder anderem Befehl
+#   oder die Nummer der Spalte bei gültiger Eingabe
+#   Test:
+#       Eingabe von exit oder restart --> Spiel wird beendet/neu gestartet
+#       Eingabe einer Zahl --> Rückgabe der nächst möglichen Spalte
+#       Eingabe von anderem Text --> Ausabe von "Falsche Eingabe"
+#        und Rückgabe von -1
+
+# drop_coin(col)
+#   Die Funktion erwartet den Spaltenindex der entsprechenden Spalte
+#   Zurückgegeben wird ein bool Wert
+#   Die Funktion getUserInput stellt sicher, das eine gültige Spalte
+#    an drop_coin übergeben wird.
+#   Test:
+#       Aufruf mit Spaltenindex einer nicht vollen Spalte
+#           --> return True, Spielstein wird in Spalte plaziert
+#       Aufruf mit Spaltenindex einer vollen Spalte
+#           --> return False, Spielfeld wird nicht verändert
+
+
+
+
 
 # endregion
