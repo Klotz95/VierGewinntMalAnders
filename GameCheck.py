@@ -57,9 +57,12 @@ class GameCheck:
         for y in range(countOfLines):
             currentCountOfSignsInARow = 0
             for x in range(countOfRows):
-                if(cuttedGameField[y][x] == playerSign):
-                     currentCountOfSignsInARow += 1
-                else:
+                if(cuttedGameField[y][x] != playerSign or x == countOfRows - 1):
+                     # check for last possibility
+                     if(cuttedGameField[y][x] == playerSign):
+                         currentCountOfSignsInARow += 1
+                         x += 1
+
                      if(currentCountOfSignsInARow == 2):
                          # check for two bot and top
                          if(countOfLines - (y + 1) >= 2):
@@ -97,7 +100,7 @@ class GameCheck:
                             return True
 
                      elif(currentCountOfSignsInARow > 3):
-                         for i in range(currentCountOfSignsInARow, 0 , -1):
+                         for i in range(currentCountOfSignsInARow, 1 , -1):
                              if(countOfLines - (y + 1) >= 1):
                                  if(cuttedGameField[y + 1][x - i] == \
                                  playerSign):
@@ -109,5 +112,7 @@ class GameCheck:
 
                      # reset currentCountOfSignsInARow
                      currentCountOfSignsInARow = 0
+                else:
+                    currentCountOfSignsInARow += 1
         #if no combination has been found
         return False
