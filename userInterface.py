@@ -199,19 +199,23 @@ while 1:
     initGame(game_data)
 
     while gGameState == 2:
+        clearConsole()
         printGame()
         print("Spieler", gActualPlayer, "ist am Zug")
         target_column = getUserInput()
         if target_column < 0:
             continue
         drop_coin(int(target_column)-1)
-        printGame()
+        
         curGameState = game_checker.is_game_finish()
         if(curGameState != 0):
+             clearConsole()
+             printGame()
              input("Spieler " + str(curGameState) + " hat gewonnen...")
              gGameState = 0
         
     while gGameState == 1:
+        clearConsole()
         printGame()
         if gActualPlayer == 1:
             target_column = getUserInput()
@@ -223,10 +227,11 @@ while 1:
             # TODO: KI Implementieren
             while not drop_coin(ki.get_next_move()):
                 pass
-        printGame()
         # check for win
         curGameState = game_checker.is_game_finish()
         if(curGameState != 0):
+            clearConsole()
+            printGame()
             if(curGameState == 1):
                 input("Glückwunsch, sie haben gewonnen...")
             else:
