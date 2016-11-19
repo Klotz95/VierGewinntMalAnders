@@ -2,7 +2,7 @@
 program for EPR 03
 """
 
-__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier"
+__author__ = "6345060: Nico Kotlenga, 6404053: Tim Geier"
 __copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
 __email__ = "nico.kotlenga@stud.uni frankfurt.de, uni@tim-geier.de"
 
