@@ -1,116 +1,1 @@
-""" This module contains the AI of the Game "Vier gewinnt mal anders"
-
-"""
-import random
-import deepcopy from copy
-
-import GameCheck from GameCheck
-
-__author__ = "6345060 Nico Kotlenga, 6404053: Tim Geier"
-__copyright__ = "Copyright 2016 – EPR-Goethe-Uni"
-__email__ = "nico.kotlenga@stud.uni-frankfurt.de, uni@tim-geier.de"
-
-class AI:
-
-    def __init__(self, currentGameField):
-        """ This method will be called during the initialization of the AI
-            class. The parameter is the reference to the current game field
-
-        """
-        self.currentGameField = currentGameField;
-
-    def get_next_move(self):
-        """ This method will return a numeric value which contains the number
-            of row, which the computer wants to play next
-
-        """
-
-
-    def  __checkForThreeCol(self, cuttedGameField):
-        """Check for a possibility to get three in a col (this increases the
-            possibility for a win)
-            
-        """
-        countRows = len(cuttedGameField)
-        countCol = len(cuttedGameField[0])
-
-        for x in range(0, countCol, 1):
-            maxYCount = 0
-            for y in rnage(0, countRows, 1):
-                if(cuttedGameField[y][x] == 2):
-                    maxYCount += 1
-                else:
-                    if(maxYCount == 2):
-
-    def  __checkForThreeRow(self, cuttedGameField):
-        """ Check for a possibility to get three in a row (this increases the
-            possibility for a win)
-
-        """
-        countRows = len(cuttedGameField)
-        countCol = len(cuttedGameField[0])
-
-        for y in range(0, countRows, 1):
-            maxXCount = 0
-            for x in range(0, countCol, 1):
-                if(cuttedGameField[y][x] == 2):
-                    maxXCount += 1
-                else:
-                    if(maxXCount == 2):
-                        leftFree = False;
-                        rightFree = False
-                        if(x - 3 >= 0 and cuttedGameField[y][x - 3] == 0):
-                            leftFree = True
-                        if(x + 1 < len(countCol) and \
-                        cuttedGameField[y][x + 1] == 0):
-                            rightFree = True
-
-                         int prefferedSite = random.randint(0,1) # 0left 1right
-                         if(prefferedSite == 0 and leftFree == True):
-                             return x - 3
-                         if(prefferedSite == 1 and rightFree == True):
-                             return x + 1
-                    maxXCount = 0
-
-        return None
-
-
-    def __checkForWin(self, cuttedGameField):
-        """ This method checks whether a win is possible in the next round.
-            If yes, it will return a numeric value with the col. Otherwise
-            it will return None.
-        """
-
-        countRows = len(cuttedGameField)
-        countCol = len(cuttedGameField[0])
-
-        for y in range(0, countRows, 1):
-            maxInARow = 0
-            for x in range(0, countCol, 1):
-                if(cuttedGameField[y][x] == 2):
-                    maxInARow += 1
-                else:
-                    if(maxInARow > 1):
-                        #now drop a virtual coin
-                        for k in range(0, maxInARow, 1):
-                            maybeWin = self.__virtualMove((x - (k + 1)), \
-                            deepcopy(cuttedGameField)))
-
-                            if(maybeWin):
-                                return (x - (k + 1))
-                    maxInARow = 0
-        return None
-
-    def __virtualMove(self, col, copiedGameField):
-        """ this method uses a copy of the gamefield to make a virtual move.
-            It will return true if after the move the game is won.
-
-        """
-
-        for y in range(0, len(copiedGameField), 1):
-            if(copiedGameField[y][col] == 0):
-                copiedGameField[y][col] = 1
-                cur_game_checker = GameCheck(copiedGameField)
-                if(cur_game_checker.is_game_finish(copiedGameField) == 2):
-                    return True
-        return False
+import randomclass ki():    """description of class"""    def __init__(self, currentGameField):        """ This method will be called during the initialization of a new            object of this class. currentGameField contains a two dimesnional            array which describes the current state of the game        """        self.__currentGameField = currentGameField    def get_next_move(self):        """return collumn index for next move        """        currentGameField = self.__currentGameField        lineLength = len(currentGameField[0])-1        for curr_row in range(len(currentGameField)-1 , -1, -1):            if self.check_if_row_is_full(currentGameField, curr_row):                continue            else:                three_in_row = self.check_if_three_in_row(currentGameField, curr_row)                two_in_row = self.check_if_two_in_row(currentGameField, curr_row)                if three_in_row >= 0:                        try:                        if currentGameField[curr_row+1][three_in_row] == 1:                            continue                        else:                                      return three_in_row                    except IndexError:                        continue                if two_in_row >= 0:                        try:                        if currentGameField[curr_row+1][two_in_row] == 1:                            continue                        else:                                      return two_in_row                    except IndexError:                        continue                for i in range(lineLength):                    if currentGameField[curr_row][i] == 2:                        try:                            if  currentGameField[curr_row][i + 1] == 0:                                return i+1                            elif currentGameField[curr_row][i - 1] == 0:                                return i-1                        except IndexError:                            continue        else:            return(random.randint(0, lineLength))    def check_if_row_is_full(self, gameField, row):        is_full = True        for curr_collumn in gameField[row]:            if curr_collumn == 0:                is_full = False        return is_full    def check_if_two_in_row(self, gameField, row):        lineLength = len(gameField[0])-1        for curr_collumn in range(lineLength):            if gameField[row][curr_collumn] == 2:                try:                    if random.randint(0,1) == 0:                        if gameField[row][curr_collumn - 1] == 2:                            return curr_collumn                        if gameField[row][curr_collumn + 1] == 2:                            return curr_collumn                    else:                        if gameField[row][curr_collumn + 1] == 2:                            return curr_collumn                        if gameField[row][curr_collumn - 1] == 2:                            return curr_collumn                except IndexError:                    continue        else:            return -1    def check_if_three_in_row(self, gameField, row):        lineLength = len(gameField[0])-1        for curr_collumn in range(lineLength):            if gameField[row][curr_collumn] == 2:                try:                    numbers = [[0,1,2],[-2,-1,0]]                    for number in numbers:                        if gameField[row][number[0]] == gameField[row][number[1]] == gameField[row][number[2]] == 2:                            return curr_collumn                except IndexError:                    continue        else:            return -1        
